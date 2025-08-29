@@ -14,10 +14,7 @@ with sync_playwright() as p:
     page.screenshot(path="pagina.png", full_page=True)
     browser.close()
 
-ClavesApis = [
-    'AIzaSyAuy0mbLHZKUxYU8aGS9KpN7_NXAHmTEjk',  # clave de valen
-    'AIzaSyAlkqDVXRVx0VB56PcC7JE25RUcntoJIeA',
-]
+ClaveApi = 'AIzaSyAuy0mbLHZKUxYU8aGS9KpN7_NXAHmTEjk'  # clave de valen
 
 def extraer_retry_delay(e: Exception, fallback=60):
     s = str(e)
@@ -36,15 +33,11 @@ def es_429(e: Exception):
     return ("429" in s) or ("resource exhausted" in s) or ("quota" in s)
 
 # --- Lógica de llamadas ---
-genai.configure(api_key=ClavesApis[0])  # usá 1 sola clave por proyecto
+genai.configure(api_key=ClaveApi)
 model = genai.GenerativeModel(
     model_name="gemini-2.5-flash",  # en Flash sí podemos apagar thinking
     generation_config={
-        # Respuesta en JSON (más barato y estable para tu caso)
         "response_mime_type": "application/json",
-        # Nota: en este SDK legacy no siempre está disponible thinking_config.
-        # Si migrás al SDK nuevo (google-genai), podés añadir:
-        # "thinking_config": {"thinking_budget": 0}
     },
 )
 
@@ -54,7 +47,7 @@ MAX_RETRIES = 6
 intento = 0
 while True:
     try:
-        print("Usando modelo: gemini-2.5-flash (thinking desactivado)")
+        print("Consultando modelo...")
         prompt = (
             "Te voy a dar una imagen y la estructura HTML de una pagina web. "
             "Necesito que me respondas en formato JSON con estas claves: "
@@ -74,12 +67,6 @@ while True:
             delay = max(delay, 2 ** intento) + random.uniform(1, 3)
             print(f"429/Quota: espero {int(delay)}s y reintento (intento {intento}/{MAX_RETRIES})...")
             time.sleep(delay)
-            continue
-        elif "API key not valid" in str(e) or "PERMISSION_DENIED" in str(e):
-            # Solo rotá clave si realmente es problema de credenciales, no por cuota.
-            idx = (ClavesApis.index(genai._options.api_key) + 1) % len(ClavesApis)
-            genai.configure(api_key=ClavesApis[idx])
-            print("Clave inválida: cambiando a la siguiente.")
             continue
         else:
             raise
