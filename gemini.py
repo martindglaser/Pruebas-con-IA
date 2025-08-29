@@ -19,7 +19,6 @@ with sync_playwright() as p:
 ClavesApis = [
     'AIzaSyAuy0mbLHZKUxYU8aGS9KpN7_NXAHmTEjk', #clave de valen
     'AIzaSyAlkqDVXRVx0VB56PcC7JE25RUcntoJIeA',
-    'AIzaSyAKKCyca-ddWrKrvE6lCacX5mwXqvwgYWY',
 ]
 
 claveAPI = 0
