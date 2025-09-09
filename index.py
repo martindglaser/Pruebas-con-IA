@@ -4,11 +4,20 @@ from PIL import Image
 from playwright.sync_api import sync_playwright
 from bs4 import BeautifulSoup 
 
+
+#ENDPOINT POST
+#PARAMS:
+    #URL A ANALIZAR
+    #TOLERANCIA (ALTA, MEDIA, BAJA)
+#RETURNS
+    #JSON CON ANALISIS
+
+
 # --- Navegación y captura ---
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=True)  # True si no necesitás ventana
     page = browser.new_page()
-    page.goto("https://infobae.com/", wait_until="domcontentloaded")
+    page.goto("https://www.promiedos.com.ar/", wait_until="domcontentloaded")
     print("Título:", page.title())
     contenido = page.content()
     print("URL actual:", page.url)
@@ -55,7 +64,7 @@ Tolerancia = {
 
 
 
-nivel_tolerancia = "baja"  # <-- cambiá esto si querés
+nivel_tolerancia = "alta"  # <-- cambiá esto si querés
 
 PROMPT = f"""
 Sos un verificador visual de interfaces. Devolveme SOLO JSON válido.
