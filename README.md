@@ -6,7 +6,7 @@
 
 
 Endpoints
-    - POST: /analizar
+    - POST: /analyze
         Params
             url,
             tolerance (high, medium or low), --> Optional
