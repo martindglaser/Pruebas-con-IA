@@ -9,8 +9,9 @@ Endpoints
     - POST: /analizar
         Params
             url,
-            tolerancia (alta, media o baja)
+            tolerance (high, medium or low), --> Optional
+            language (es, en, de, fr, it, pt) --> optional
         Response
-            queVeo: String,
-            necesitaModificacion: Boolean,
-            modificaciones: String[]
+            whatISee: String,
+            needsModification: Boolean,
+            modifications: String[]
