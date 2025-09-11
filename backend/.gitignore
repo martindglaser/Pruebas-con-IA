@@ -6,7 +6,7 @@
 *.sln.docstates
 .vscode/
 .idea/
-*.csproj.user
+# *.csproj.user
 *.suo
 *.userprefs
 
