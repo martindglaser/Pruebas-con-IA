@@ -10,7 +10,7 @@
 *.suo
 *.userprefs
 
-# Archivos de compilación
+# Archivos de compilaciï¿½n
 bin/
 obj/
 out/
@@ -25,7 +25,7 @@ Release/
 *.cache
 *.tmp
 
-# Configuración de VS Code / Rider
+# Configuraciï¿½n de VS Code / Rider
 .vscode/
 .idea/
 *.DotSettings
